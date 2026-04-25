@@ -1,57 +1,38 @@
-# 📦 QuickOrder Microservices
+# 🧾 QuickOrder Microservices
 
-## 👥 Integrantes
-- Daniela Salinas
-- Danilo Guzmán
-- Ignacio Castro
+Sistema de gestión de pedidos basado en arquitectura de microservicios desarrollado con Spring Boot.
 
 ---
 
-## 📌 Descripción del proyecto
+## 📦 Microservicios
 
-QuickOrder Microservices es un sistema basado en arquitectura de microservicios desarrollado con Spring Boot, cuyo objetivo es simular la gestión de pedidos, usuarios, productos, inventario, pagos y envíos dentro de una plataforma tipo e-commerce.
+El sistema está compuesto por los siguientes servicios independientes:
 
-Cada microservicio es independiente, con su propia lógica de negocio y base de datos.
-
----
-
-## 🧱 Arquitectura
-
-- Microservicios independientes
-- Base de datos por servicio
-- Comunicación REST
-- Patrón CSR (Controller, Service, Repository)
-
----
-
-## 🧩 Microservicios
-
-- auth-service (pendiente)
-- users-service (pendiente)
-- products-service (pendiente)
-- inventory-service (pendiente)
-- orders-service ✔
-- order-items-service (pendiente)
-- payments-service (pendiente)
-- shipping-service (pendiente)
-- notifications-service (pendiente)
-- reviews-service (pendiente)
+- users-service → gestión de usuarios
+- auth-service → autenticación básica
+- products-service → catálogo de productos
+- inventory-service → control de stock
+- orders-service → gestión de pedidos
+- order-items-service → detalle de pedidos
+- payments-service → procesamiento de pagos
+- shipping-service → envíos
+- notifications-service → notificaciones
+- reviews-service → reseñas de productos
 
 ---
 
-## ⚙️ Tecnologías
+## 🛠️ Tecnologías utilizadas
 
 - Java 21
 - Spring Boot
 - Spring Data JPA
-- Hibernate
 - MySQL
 - Maven
-- Git + GitHub
+- Postman (pruebas de endpoints)
+- Git & GitHub
 
 ---
 
 ## 🗄️ Base de datos
 
-```sql
-CREATE DATABASE quickorder;
+Se utilizó una base de datos MySQL llamada:
