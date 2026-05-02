@@ -2,6 +2,9 @@ package com.quickorder.users_service.controller;
 
 import com.quickorder.users_service.model.Usuario;
 import com.quickorder.users_service.service.UsuarioService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,19 +13,20 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class UsuarioController {
 
-    private final UsuarioService service;
+    private final UsuarioService usuarioService;
 
-    public UsuarioController(UsuarioService service) {
-        this.service = service;
+    public UsuarioController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
     }
 
     @GetMapping
-    public List<Usuario> listar() {
-        return service.listar();
+    public ResponseEntity<List<Usuario>> listar() {
+        return ResponseEntity.ok(usuarioService.listar());
     }
 
     @PostMapping
-    public Usuario guardar(@RequestBody Usuario u) {
-        return service.guardar(u);
+    public ResponseEntity<Usuario> guardar(@Valid @RequestBody Usuario usuario) {
+        Usuario nuevoUsuario = usuarioService.guardar(usuario);
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuevoUsuario);
     }
 }

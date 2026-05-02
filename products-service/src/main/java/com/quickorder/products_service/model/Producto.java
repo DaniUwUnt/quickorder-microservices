@@ -1,6 +1,8 @@
 package com.quickorder.products_service.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Producto {
@@ -9,7 +11,10 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "El nombre del producto es obligatorio")
     private String nombre;
+
+    @Min(value = 1, message = "El precio debe ser mayor que cero")
     private int precio;
 
     public Producto() {}
