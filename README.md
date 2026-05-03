@@ -46,12 +46,14 @@ El sistema está compuesto por los siguientes servicios:
 ## 🗄️ Base de Datos
 
 Se utilizaron bases de datos MySQL independientes por microservicio, por ejemplo:
+
 quickorder_users
 quickorder_products
 quickorder_orders
 
 
 Las tablas se generan automáticamente mediante:
+
 spring.jpa.hibernate.ddl-auto=update
 
 
@@ -60,10 +62,15 @@ spring.jpa.hibernate.ddl-auto=update
 ## ⚙️ Configuración
 
 Ejemplo de configuración (`application.properties`):
+
 spring.datasource.url=jdbc:mysql://localhost:3306/quickorder_orders
+
 spring.datasource.username=root
+
 spring.datasource.password=******
+
 spring.jpa.hibernate.ddl-auto=update
+
 spring.jpa.show-sql=true
 
 
@@ -72,6 +79,7 @@ spring.jpa.show-sql=true
 ## 🚀 Ejecución del Proyecto
 
 Cada microservicio se ejecuta de forma independiente desde su respectiva carpeta:
+
 mvnw.cmd spring-boot:run
 
 
@@ -101,13 +109,16 @@ mvnw.cmd spring-boot:run
 Se implementó comunicación síncrona utilizando **WebClient**.
 
 ### Casos implementados:
+
 orders-service → users-service
+
 orders-service → products-service
 
 
 ### Endpoints de prueba:
 
 GET http://localhost:8080/api/pedidos/usuarios
+
 GET http://localhost:8080/api/pedidos/productos
 
 
@@ -137,8 +148,11 @@ Se validó:
 Se implementaron logs utilizando SLF4J en los controladores.
 
 Ejemplos de logs:
+
 Solicitud recibida: listar todos los pedidos
+
 Comunicación entre microservicios: orders-service llama a users-service
+
 Comunicación entre microservicios: orders-service llama a products-service
 
 
