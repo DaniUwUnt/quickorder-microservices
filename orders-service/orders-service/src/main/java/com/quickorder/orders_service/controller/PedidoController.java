@@ -1,5 +1,6 @@
 package com.quickorder.orders_service.controller;
 
+import com.quickorder.orders_service.client.ProductFeignClient;
 import com.quickorder.orders_service.model.Pedido;
 import com.quickorder.orders_service.service.PedidoService;
 import com.quickorder.orders_service.service.UserClient;
@@ -27,6 +28,9 @@ public class PedidoController {
     @Autowired
     private ProductClient productClient;
 
+    @Autowired
+    private ProductFeignClient productFeignClient;
+
     @GetMapping
     public List<Pedido> listar() {
         logger.info("Solicitud recibida: listar todos los pedidos");
@@ -50,4 +54,10 @@ public class PedidoController {
         logger.info("Comunicación entre microservicios: orders-service llama a products-service");
         return productClient.obtenerProductos();
     }
+
+    @GetMapping("/productos-feign")
+    public String obtenerProductosConFeign() {
+    logger.info("Comunicación entre microservicios usando Feign: orders-service llama a products-service");
+    return productFeignClient.obtenerProductos();
+}
 }
