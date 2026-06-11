@@ -181,6 +181,11 @@ Se implementó una arquitectura en capas en cada microservicio:
 * Comunicación entre microservicios
 * Logs con SLF4J
 * Separación clara de responsabilidades
+* Documentación automática con Swagger/OpenAPI
+* Navegación entre recursos mediante HATEOAS
+* Pruebas unitarias con JUnit 5
+* Mocking con Mockito
+* Comunicación entre microservicios mediante Feign Client
 
 ---
 
@@ -206,3 +211,60 @@ Proyecto desarrollado para la asignatura de Desarrollo FullStack, enfocado en la
 ✔ Integración con base de datos operativa  
 ✔ Comunicación entre microservicios implementada  
 ✔ Logs implementados  
+
+---
+
+## 🧪 Pruebas Unitarias
+
+Se implementaron pruebas unitarias utilizando:
+
+- JUnit 5
+- Mockito
+
+Las pruebas fueron desarrolladas para validar la lógica de negocio del servicio de pedidos (`PedidoService`).
+
+Para ejecutar las pruebas:
+
+```bash
+mvnw.cmd test
+
+Resultado esperado:
+
+Tests run: 8
+Failures: 0
+Errors: 0
+
+
+---
+
+## 📖 Documentación API (Swagger)
+
+```md
+## 📖 Documentación API (Swagger)
+
+El microservicio orders-service incorpora documentación automática mediante Swagger/OpenAPI.
+
+Acceso:
+
+http://localhost:8080/swagger-ui/index.html
+
+Permite visualizar y probar los endpoints disponibles directamente desde el navegador.
+
+---
+
+## 🔗 HATEOAS
+
+Se implementó HATEOAS en el endpoint:
+
+GET /api/pedidos/{id}
+
+La respuesta incluye enlaces relacionados que permiten navegar entre recursos de la API.
+
+Ejemplo:
+
+{
+  "_links": {
+    "self": {...},
+    "pedidos": {...}
+  }
+}
