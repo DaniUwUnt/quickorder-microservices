@@ -1,4 +1,9 @@
 package com.quickorder.orders_service.controller;
+import org.springframework.http.ResponseEntity;
+import org.springframework.hateoas.EntityModel;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import com.quickorder.orders_service.client.ProductFeignClient;
 import com.quickorder.orders_service.model.Pedido;
@@ -36,6 +41,29 @@ public class PedidoController {
         logger.info("Solicitud recibida: listar todos los pedidos");
         return pedidoService.listar();
     }
+
+    @GetMapping("/{id}")
+public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
+    logger.info("Solicitud recibida: buscar pedido por ID {}", id);
+
+    return pedidoService.buscarPorId(id)
+            .map(pedido -> {
+                EntityModel<Pedido> recurso = EntityModel.of(pedido);
+
+                recurso.add(
+                        linkTo(methodOn(PedidoController.class).buscarPorId(id))
+                                .withSelfRel()
+                );
+
+                recurso.add(
+                        linkTo(methodOn(PedidoController.class).listar())
+                                .withRel("pedidos")
+                );
+
+                return ResponseEntity.ok(recurso);
+            })
+            .orElse(ResponseEntity.notFound().build());
+}
 
     @PostMapping
     public Pedido guardar(@Valid @RequestBody Pedido pedido) {
