@@ -225,7 +225,7 @@ Las pruebas fueron desarrolladas para validar la lógica de negocio del servicio
 
 Para ejecutar las pruebas:
 
-`bash
+```bash
 mvnw.cmd test
 
 Resultado esperado:
@@ -234,6 +234,7 @@ Tests run: 8
 Failures: 0
 Errors: 0
 
+```
 
 ---
 
@@ -249,7 +250,7 @@ Acceso:
 http://localhost:8080/swagger-ui/index.html
 
 Permite visualizar y probar los endpoints disponibles directamente desde el navegador.
-
+```
 ---
 
 ## 🔗 HATEOAS
