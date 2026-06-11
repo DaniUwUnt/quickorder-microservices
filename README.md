@@ -225,7 +225,7 @@ Las pruebas fueron desarrolladas para validar la lógica de negocio del servicio
 
 Para ejecutar las pruebas:
 
-```bash
+`bash
 mvnw.cmd test
 
 Resultado esperado:
