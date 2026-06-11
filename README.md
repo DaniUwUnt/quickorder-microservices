@@ -241,6 +241,7 @@ Errors: 0
 ## 📖 Documentación API (Swagger)
 
 ```md
+```
 ## 📖 Documentación API (Swagger)
 
 El microservicio orders-service incorpora documentación automática mediante Swagger/OpenAPI.
@@ -250,7 +251,7 @@ Acceso:
 http://localhost:8080/swagger-ui/index.html
 
 Permite visualizar y probar los endpoints disponibles directamente desde el navegador.
-```
+
 ---
 
 ## 🔗 HATEOAS
