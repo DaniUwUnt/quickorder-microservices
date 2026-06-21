@@ -37,236 +37,123 @@ El sistema está compuesto por los siguientes servicios:
 * Hibernate
 * MySQL
 * Maven
-* Postman (para pruebas de endpoints)
 * Git & GitHub
-* SLF4J (logs)
+* Docker / Docker Desktop
+* Eureka Server
+* API Gateway
+* Swagger / OpenAPI
+* JUnit 5
+* Mockito
+* SLF4J
 
 ---
 
-## 🗄️ Base de Datos
+## 🌐 Servicios principales levantados
 
-Se utilizaron bases de datos MySQL independientes por microservicio, por ejemplo:
-
-quickorder_users
-quickorder_products
-quickorder_orders
-
-
-Las tablas se generan automáticamente mediante:
-
-spring.jpa.hibernate.ddl-auto=update
-
+| Servicio         |             Puerto | Función                                     |
+| ---------------- | -----------------: | ------------------------------------------- |
+| eureka-server    |               8761 | Registro y descubrimiento de microservicios |
+| api-gateway      |               8090 | Punto único de entrada a las APIs           |
+| orders-service   | 8080 / Docker 8085 | Gestión de pedidos                          |
+| users-service    |               8081 | Gestión de usuarios                         |
+| products-service |               8082 | Gestión de productos                        |
 
 ---
 
-## ⚙️ Configuración
+## 🔎 Eureka Server
 
-Ejemplo de configuración (`application.properties`):
+Se implementó Eureka Server para registrar los microservicios del sistema y permitir que puedan descubrirse entre sí.
 
-spring.datasource.url=jdbc:mysql://localhost:3306/quickorder_orders
+Acceso:
 
-spring.datasource.username=root
+```txt
+http://localhost:8761
+```
 
-spring.datasource.password=******
+Servicios registrados correctamente en Eureka:
 
-spring.jpa.hibernate.ddl-auto=update
-
-spring.jpa.show-sql=true
-
-
----
-
-## 🚀 Ejecución del Proyecto
-
-Cada microservicio se ejecuta de forma independiente desde su respectiva carpeta:
-
-mvnw.cmd spring-boot:run
-
-
-⚠️ Es necesario ejecutar múltiples servicios en paralelo para probar la comunicación entre microservicios.
+* API-GATEWAY
+* ORDERS-SERVICE
+* USERS-SERVICE
+* PRODUCTS-SERVICE
 
 ---
 
-## 🌐 Puertos Utilizados
+## 🚪 API Gateway
 
-| Microservicio         | Puerto |
-|----------------------|--------|
-| users-service         | 8081   |
-| products-service      | 8082   |
-| inventory-service     | 8083   |
-| order-items-service   | 8084   |
-| payments-service      | 8085   |
-| shipping-service      | 8086   |
-| notifications-service | 8087   |
-| reviews-service       | 8088   |
-| auth-service          | 8089   |
-| orders-service        | 8080   |
+Se implementó API Gateway como punto único de entrada para centralizar el acceso a los microservicios.
+
+Ejemplo de acceso mediante Gateway:
+
+```txt
+http://localhost:8090/api/pedidos
+```
+
+El Gateway redirige las solicitudes hacia el microservicio correspondiente utilizando Eureka.
 
 ---
 
-## 🔗 Comunicación entre Microservicios
+## 🐳 Docker
 
-Se implementó comunicación síncrona utilizando **WebClient**.
+Se dockerizaron los siguientes servicios:
 
-### Casos implementados:
+* eureka-server
+* api-gateway
+* orders-service
+* users-service
+* products-service
 
-orders-service → users-service
+Cada servicio cuenta con su propio `Dockerfile`.
 
-orders-service → products-service
+Contenedores validados en Docker Desktop:
 
-
-### Endpoints de prueba:
-
-GET http://localhost:8080/api/pedidos/usuarios
-
-GET http://localhost:8080/api/pedidos/productos
-
-
-Esto permite que el microservicio de pedidos consuma información desde otros servicios mediante HTTP.
-
----
-
-## 🧪 Pruebas
-
-Los endpoints fueron probados utilizando Postman y navegador.
-
-Métodos utilizados:
-
-* **GET** → obtener datos
-* **POST** → crear registros
-
-Se validó:
-
-* Respuesta 200 OK
-* Retorno de datos en formato JSON
-* Correcta integración entre microservicios
+* quickorder-eureka-test
+* quickorder-api-gateway-test
+* quickorder-orders-test
+* quickorder-users-service
+* quickorder-products-service
 
 ---
 
-## 🧾 Logs (SLF4J)
+## 📖 Swagger / OpenAPI
 
-Se implementaron logs utilizando SLF4J en los controladores.
+El microservicio `orders-service` incorpora documentación automática mediante Swagger/OpenAPI.
 
-Ejemplos de logs:
+Acceso:
 
-Solicitud recibida: listar todos los pedidos
+```txt
+http://localhost:8080/swagger-ui/index.html
+```
 
-Comunicación entre microservicios: orders-service llama a users-service
+También se puede visualizar la definición OpenAPI en:
 
-Comunicación entre microservicios: orders-service llama a products-service
-
-
-Esto permite monitorear el comportamiento del sistema y las interacciones entre servicios.
-
----
-
-## 🏗️ Arquitectura
-
-Se implementó una arquitectura en capas en cada microservicio:
-
-* **Controller** → Manejo de solicitudes HTTP
-* **Service** → Lógica de negocio
-* **Repository** → Acceso a datos
-* **Model (Entity)** → Representación de la base de datos
-
----
-
-## 📌 Características
-
-* Arquitectura basada en microservicios
-* Independencia entre servicios
-* API REST
-* Persistencia con JPA / Hibernate
-* Generación automática de tablas
-* Comunicación entre microservicios
-* Logs con SLF4J
-* Separación clara de responsabilidades
-* Documentación automática con Swagger/OpenAPI
-* Navegación entre recursos mediante HATEOAS
-* Pruebas unitarias con JUnit 5
-* Mocking con Mockito
-* Comunicación entre microservicios mediante Feign Client
-
----
-
-## 👥 Integrantes
-
-* Daniela Salinas
-* Danilo Guzman
-* Ignacio Castro
-
----
-
-## 📚 Contexto Académico
-
-Proyecto desarrollado para la asignatura de Desarrollo FullStack, enfocado en la implementación de microservicios utilizando Spring Boot y bases de datos relacionales.
-
----
-
-## 🚀 Estado del Proyecto
-
-✔ Proyecto completamente funcional  
-✔ Todos los microservicios implementados  
-✔ Endpoints probados correctamente  
-✔ Integración con base de datos operativa  
-✔ Comunicación entre microservicios implementada  
-✔ Logs implementados  
+```txt
+http://localhost:8080/v3/api-docs
+```
 
 ---
 
 ## 🧪 Pruebas Unitarias
 
-Se implementaron pruebas unitarias utilizando:
-
-- JUnit 5
-- Mockito
-
-Las pruebas fueron desarrolladas para validar la lógica de negocio del servicio de pedidos (`PedidoService`).
+Se implementaron pruebas unitarias con JUnit 5 y Mockito para validar la lógica de negocio de `PedidoService`.
 
 Para ejecutar las pruebas:
 
 ```bash
 mvnw.cmd test
-
-Resultado esperado:
-
-Tests run: 8
-Failures: 0
-Errors: 0
-
 ```
 
 ---
 
-## 📖 Documentación API (Swagger)
+## 🚀 Estado del Proyecto
 
-```md
+✔ Microservicios principales implementados
+✔ Eureka Server funcionando
+✔ API Gateway funcionando
+✔ Orders, Users y Products registrados en Eureka
+✔ Docker configurado para los servicios principales
+✔ Conexión con MySQL operativa
+✔ Swagger/OpenAPI integrado
+✔ Pruebas unitarias implementadas
+✔ Proyecto subido y actualizado en GitHub
 
-📖 Documentación API (Swagger)
-
-El microservicio orders-service incorpora documentación automática mediante Swagger/OpenAPI.
-
-Acceso:
-
-http://localhost:8080/swagger-ui/index.html
-
-Permite visualizar y probar los endpoints disponibles directamente desde el navegador.
-```
----
-
-## 🔗 HATEOAS
-
-Se implementó HATEOAS en el endpoint:
-
-GET /api/pedidos/{id}
-
-La respuesta incluye enlaces relacionados que permiten navegar entre recursos de la API.
-
-Ejemplo:
-
-{
-  "_links": {
-    "self": {...},
-    "pedidos": {...}
-  }
-}
