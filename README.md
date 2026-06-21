@@ -50,16 +50,31 @@ El sistema está compuesto por los siguientes servicios:
 
 ## 🌐 Servicios principales levantados
 
-| Servicio         |             Puerto | Función                                     |
-| ---------------- | -----------------: | ------------------------------------------- |
-| eureka-server    |               8761 | Registro y descubrimiento de microservicios |
-| api-gateway      |               8090 | Punto único de entrada a las APIs           |
-| orders-service   | 8080 / Docker 8085 | Gestión de pedidos                          |
-| users-service    |               8081 | Gestión de usuarios                         |
-| products-service |               8082 | Gestión de productos                        |
+| Servicio         |             Puerto           | Función                                     |
+| ---------------- | ----------------------------:| ------------------------------------------- |
+| eureka-server    |                          8761| Registro y descubrimiento de microservicios |
+| api-gateway      |                          8090| Punto único de entrada a las APIs           |
+| orders-service   | 8080 (interno) / Docker 8085 | Gestión de pedidos                          |
+| users-service    |                          8081| Gestión de usuarios                         |
+| products-service |                          8082| Gestión de productos                        |
 
 ---
+## 🏗️ Arquitectura del Sistema
 
+Cliente
+↓
+API Gateway (8090)
+↓
+Eureka Server
+↓
+Microservicios
+
+- Orders Service
+- Users Service
+- Products Service
+
+Cada microservicio mantiene su propia base de datos y puede desplegarse de forma independiente mediante Docker.
+---
 ## 🔎 Eureka Server
 
 Se implementó Eureka Server para registrar los microservicios del sistema y permitir que puedan descubrirse entre sí.
@@ -69,6 +84,21 @@ Acceso:
 ```txt
 http://localhost:8761
 ```
+
+## 🌐 Arquitectura Implementada
+
+El sistema utiliza una arquitectura basada en microservicios con descubrimiento de servicios mediante Eureka Server.
+
+Los servicios se registran automáticamente en Eureka y son consumidos a través de un API Gateway centralizado.
+
+Servicios registrados:
+
+- API Gateway
+- Orders Service
+- Users Service
+- Products Service
+
+La solución fue desplegada utilizando contenedores Docker.
 
 Servicios registrados correctamente en Eureka:
 
@@ -148,12 +178,9 @@ mvnw.cmd test
 ## 🚀 Estado del Proyecto
 
 ✔ Microservicios principales implementados
-✔ Eureka Server funcionando
-✔ API Gateway funcionando
-✔ Orders, Users y Products registrados en Eureka
-✔ Docker configurado para los servicios principales
-✔ Conexión con MySQL operativa
-✔ Swagger/OpenAPI integrado
-✔ Pruebas unitarias implementadas
-✔ Proyecto subido y actualizado en GitHub
+✔ Eureka Server operativo
+✔ API Gateway operativo
+✔ Servicios desplegados en Docker
+✔ Registro automático en Eureka
+✔ Endpoints validados correctamente
 
