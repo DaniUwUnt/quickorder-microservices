@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
+@Table(name = "usuario")
 public class Usuario {
 
     @Id
@@ -18,7 +19,8 @@ public class Usuario {
     @Email(message = "El email debe tener un formato válido")
     private String email;
 
-    public Usuario() {}
+    public Usuario() {
+    }
 
     public Long getId() {
         return id;
